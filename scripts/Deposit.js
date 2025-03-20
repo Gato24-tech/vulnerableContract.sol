@@ -1,26 +1,25 @@
-const ethers = require ("hardhat");
-
+const { ethers } = require("hardhat"); // ✅ Importamos ethers desde Hardhat correctamente
 
 async function main() {
-    
-const[owner] = await ethers.getSigners();
-console.log("Owner.Address:", owner.address);
+    // ✅ Obtenemos la cuenta del owner
+    const [owner] = await ethers.getSigners();
+    console.log("Owner Address:", owner.address);
 
-const contract = await ethers.getContract("VulnerableContract", 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    // ✅ Obtenemos la instancia del contrato vulnerable
+    const contract = await ethers.getContractAt("VulnerableContract", "0x5FbDB2315678afecb367f032d93F642f64180aa3");
+    const tx = await contract.deposit({ value: ethers.parseEther("10") });
+    await tx.wait();
+    console.log("✅ Depósito realizado");
+    console.log("🔗 Hash de la transacción de depósito:", tx.hash);
 
-const tx = await contract.deposit({value: ethers.parseEther("10")});
-await toString.wait();
-console.log("Deposito realizado:")
 
-const balance = await contract.getBalance();
-console.log("Saldo Inicial:", ethers.formatEthers(balance), "ETH");
+    // ✅ Consultamos el saldo del contrato vulnerable
+    const balance = await ethers.provider.getBalance(contract.target);
+    console.log("💰 Saldo del contrato:", ethers.formatEther(balance), "ETH");
 }
 
+// ✅ Ejecutamos la función main con manejo de errores
 main().catch((error) => {
     console.error(error);
-    procces.exitcode = 1;
+    process.exitCode = 1; // Se usa "process", no "procces"
 });
-
-
-
-
